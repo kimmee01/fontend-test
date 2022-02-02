@@ -1,0 +1,10 @@
+@import './font.css';
+@import './root.css';
+@import './reboot.css';
+@import './form.css';
+@import './button.css';
+@import './grid.css';
+
+.container{ 
+  padding: 0px 30px;
+}

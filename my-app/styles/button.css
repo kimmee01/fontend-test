@@ -1,0 +1,33 @@
+button { 
+    width: 100%;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    background-color: var(--bs-primary);
+    color: var(--bs-white);
+    font-weight:bold;
+}
+button:hover { 
+    background-color: var(--bs-hover);
+}
+
+.btn-sm { 
+    /* todo */
+}
+
+.btn-md { 
+    /* todo */
+}
+
+.btn-lg { 
+    /* todo */
+}
+
+.btn-white { 
+    background-color: var(--bs-white);
+    color: var(--bs-primary);
+    border : solid 1px var(--bs-primary);
+}
+.btn-white:hover { 
+    color: var(--bs-white);
+}
