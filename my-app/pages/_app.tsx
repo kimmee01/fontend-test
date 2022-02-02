@@ -39,8 +39,6 @@ const Body = styled.div`
   display: flex;
   .content{ 
     width: 100%;
-    background-color: var(--bs-yellow);
-    height: 100vh;
   }
   @media only screen and (max-width: 425px) {
     display: block;

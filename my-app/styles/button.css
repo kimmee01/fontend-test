@@ -11,6 +11,29 @@ button:hover {
     background-color: var(--bs-hover);
 }
 
+.btn-cancel {
+    border:solid 1px var(--bs-red);
+    background-color: var(--bs-white);
+    color: var(--bs-red)
+}
+
+.btn-edit{ 
+    border:solid 1px var(--bs-yellow);
+    background-color: var(--bs-white);
+    color: var(--bs-yellow)
+}
+
+.btn-edit:hover{ 
+    border:solid 1px var(--bs-yellow);
+    background-color: var(--bs-yellow);
+    color: var(--bs-white)
+}
+
+
+.btn-cancel:hover {
+    color: var(--bs-white);
+    background-color: var(--bs-red)
+}
 .btn-sm { 
     /* todo */
 }

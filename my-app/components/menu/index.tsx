@@ -19,6 +19,8 @@ const Menu = (props: IHeader) => {
             <div className="bar-icon" onClick={() => setIsShowMenu(!isShowMenu)}>
                 <i className="fas fa-bars"></i>
             </div>
+            <div className={isShowMenu ? `bg-menu` : ""}>
+            </div>
             <div className={`menu`}>
                     <div className="header" onClick={() => setIsShowMenu(!isShowMenu)}>
                         <Link href="/" >
@@ -32,7 +34,7 @@ const Menu = (props: IHeader) => {
                     {config.menu.map((o: any , key : number) =>
                        <Link href={o.url}  key={key}>
                             <li onClick={() => setIsShowMenu(!isShowMenu)} key={key}>
-                                <p>{o.name}</p>
+                            <i className={o.icon}></i> <p style={{paddingLeft : o.icon ? "10px" : "0px"}} >{o.name}</p>
                             </li>
                         </Link>
                     )}
@@ -61,6 +63,14 @@ const Styled = styled.nav<any>`
         color: var(--bs-white);
         padding: 20px ;
     }
+    .bg-menu{
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: var(--bs-blue);
+    }
     .header{
         cursor: pointer;
         position: relative;
@@ -75,6 +85,7 @@ const Styled = styled.nav<any>`
     }
 
     ul li {
+        display: flex;
         cursor: pointer;
         p{
             font-size:16px;
@@ -83,6 +94,7 @@ const Styled = styled.nav<any>`
 
     li:hover { 
         color : var(--bs-purple);
+
     }
     .bar-icon { 
         display: none;
