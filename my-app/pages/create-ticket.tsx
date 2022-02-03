@@ -14,7 +14,7 @@ interface ITicketData {
     email: string,
 }
 const CreateTicketPage = () => {
-    const callservice = async (data : any) => {
+    const callservice = async (data: ITicketData) => {
         const response = await callService(
             {
                 method: method.post,
@@ -27,7 +27,7 @@ const CreateTicketPage = () => {
         <Styled>
             <Header pageName="Create Ticket" />
             <div className="container">
-                <FormTicket callBack={(data)=> {callservice(data)}}/>
+                <FormTicket callBack={(data) => { callservice(data) }} />
             </div>
         </Styled>
     )

@@ -3,22 +3,34 @@ import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import styled from "styled-components";
 
-const CheckBox = (props : any) => {
+interface ICheckbox {
+    text?: string,
+    name?: string,
+    onChange?: (data : any) => void ,
+    disabled?: boolean,
+    isChecked? : boolean,
+    onClick? : (data : any) => void,
+    value? : string
+
+}
+const CheckBox = (props : ICheckbox) => {
   const [isChecked , setIsChecked] = useState(false)
 
   useEffect(()=> {
-    setIsChecked(props.isChecked)
+    setIsChecked(props?.isChecked || false)
   },[props.isChecked])
     return (
         <Styled>
             <label className="checkbox"> 
-            {props.name?.substring(0, 10) + (props.name?.length > 10 ? '...' : "")}
+            {props.name?.substring(0, 10) + (props.name && props.name.length > 10 ? '...' : "" )}
                 <input type="checkbox" 
                     id={props.name}
                     name="checkbox"
                     onClick={(e) => 
                       {setIsChecked((e.target  as HTMLInputElement).checked ) 
-                      props.onClick != undefined && props.onClick(props.value ? (e.target  as HTMLInputElement)?.value : (e.target  as HTMLInputElement).checked ) }}
+                      props.onClick != undefined && props.onClick(
+                        props.value ? (e.target  as HTMLInputElement)?.value : 
+                        (e.target  as HTMLInputElement).checked ) }}
                     onChange={(e) => props.onChange != undefined && props.onChange(props.value ? e.target.value : e.target.checked) }
                     disabled={props.disabled}
                     value={props.value}
@@ -30,14 +42,7 @@ const CheckBox = (props : any) => {
     )
 }
 
-CheckBox.propTypes = {
-    text: PropTypes.string,
-    name: PropTypes.string,
-    onChange: PropTypes.func,
-    disabled: PropTypes.bool,
-    isChecked : PropTypes.bool,
-    onClick : PropTypes.func,
-};
+
 export default CheckBox
 
 const Styled = styled.div `

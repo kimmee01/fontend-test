@@ -10,31 +10,30 @@ interface IHeader {
 
 const Menu = (props: IHeader) => {
 
-    const [isShowMenu , setIsShowMenu] = useState<boolean>(false)
-   
+    const [isShowMenu, setIsShowMenu] = useState<boolean>(false)
+
     return (
         <Styled
-        isShowMenu = {isShowMenu}
-        >
+            isShowMenu={isShowMenu}>
             <div className="bar-icon" onClick={() => setIsShowMenu(!isShowMenu)}>
                 <i className="fas fa-bars"></i>
             </div>
             <div className={isShowMenu ? `bg-menu` : ""}>
             </div>
             <div className={`menu`}>
-                    <div className="header" onClick={() => setIsShowMenu(!isShowMenu)}>
-                        <Link href="/" >
-                         <h1> Test </h1>
-                        </Link>
-                        <div className="close-icon" onClick={() => setIsShowMenu(!isShowMenu)}>
-                            <i className="fas fa-times"></i>
-                        </div>
+                <div className="header" onClick={() => setIsShowMenu(!isShowMenu)}>
+                    <Link href="/" >
+                        <h1> Test </h1>
+                    </Link>
+                    <div className="close-icon" onClick={() => setIsShowMenu(!isShowMenu)}>
+                        <i className="fas fa-times"></i>
                     </div>
+                </div>
                 <ul>
-                    {config.menu.map((o: any , key : number) =>
-                       <Link href={o.url}  key={key}>
+                    {config.menu.map((o: any, key: number) =>
+                        <Link href={o.url} key={key}>
                             <li onClick={() => setIsShowMenu(!isShowMenu)} key={key}>
-                            <i className={o.icon}></i> <p style={{paddingLeft : o.icon ? "10px" : "0px"}} >{o.name}</p>
+                                <i className={o.icon}></i> <p style={{ paddingLeft: o.icon ? "10px" : "0px" }} >{o.name}</p>
                             </li>
                         </Link>
                     )}
@@ -44,14 +43,13 @@ const Menu = (props: IHeader) => {
         </Styled>
     )
 }
-Menu.propTypes = {
-
-};
-
 
 export default Menu;
 
-const Styled = styled.nav<any>`
+interface cssMenu {
+    isShowMenu : boolean;
+}
+const Styled = styled.nav<cssMenu>`
     width:25%;
     background-color: var(--bs-blue);
     .menu {

@@ -11,15 +11,26 @@ import Modal from '../components/modal'
 import { callService, method } from '../core/callApi'
 import { statusTicket } from '../core/enum'
 import { ticketAction, updateList } from '../redux/actions/ticket.action'
+import { DefaultRootState } from '../redux/reducers/rootReducers'
+
+interface ITicketData {
+  id: number,
+  name: string,
+  description: string,
+  phoneNumber: number,
+  email: string,
+  isCheck: boolean,
+  updateDated: Date
+}
 
 
 const Home: NextPage = () => {
   const dispatch = useDispatch()
-  const listData = useSelector((state: any) => state.TicketReducer)
-  const [dataPendingData, setDataPendingData] = useState<Array<any>>([])
-  const [dataAcceptedData, setDataAcceptedData] = useState<Array<any>>([])
-  const [dataRejectedData, setDataRejectedData] = useState<Array<any>>([])
-  const [dataResolvedData, setDataResolvedData] = useState<Array<any>>([])
+  const listData = useSelector((state: DefaultRootState) => state.TicketReducer)
+  const [dataPendingData, setDataPendingData] = useState<Array<ITicketData>>([])
+  const [dataAcceptedData, setDataAcceptedData] = useState<Array<ITicketData>>([])
+  const [dataRejectedData, setDataRejectedData] = useState<Array<ITicketData>>([])
+  const [dataResolvedData, setDataResolvedData] = useState<Array<ITicketData>>([])
   const [sortData, setSortData] = useState({
     pending: "old",
     accept: "old",
@@ -28,12 +39,12 @@ const Home: NextPage = () => {
   })
 
   const [isUpdate, setUpdate] = useState<boolean>(false)
-  const [dataEdit, setDataEdit] = useState<any>(null)
+  const [dataEdit, setDataEdit] = useState<ITicketData>()
   const [openModel, setOpenModel] = useState<boolean>(false)
   const [openModelInformation, setOpenModelInformation] = useState<boolean>(false)
 
 
-  const [dataList, setDataList] = useState<any>([])
+  const [dataList, setDataList] = useState<Array<ITicketData>>([])
 
   const callservice = async () => {
     const responsePendingData = await callService(
@@ -43,7 +54,7 @@ const Home: NextPage = () => {
       }
     )
     if (responsePendingData.status === 200) {
-      responsePendingData.data.pendingData.forEach((element: any) => {
+      responsePendingData.data.pendingData.forEach((element: ITicketData) => {
         element.isCheck = false
       });
       setDataPendingData(responsePendingData.data.pendingData)
@@ -55,7 +66,7 @@ const Home: NextPage = () => {
       }
     )
     if (responseAcceptedData.status === 200) {
-      responseAcceptedData.data.acceptedData.forEach((element: any) => {
+      responseAcceptedData.data.acceptedData.forEach((element: ITicketData) => {
         element.isCheck = false
       });
       setDataAcceptedData(responseAcceptedData.data.acceptedData)
@@ -67,7 +78,7 @@ const Home: NextPage = () => {
       }
     )
     if (responseRejectedData.status === 200) {
-      responseRejectedData.data.rejectedData.forEach((element: any) => {
+      responseRejectedData.data.rejectedData.forEach((element: ITicketData) => {
         element.isCheck = false
       });
       setDataRejectedData(responseRejectedData.data.rejectedData)
@@ -80,7 +91,7 @@ const Home: NextPage = () => {
       }
     )
     if (responseResolvedData.status === 200) {
-      responseResolvedData.data.resolvedData.forEach((element: any) => {
+      responseResolvedData.data.resolvedData.forEach((element: ITicketData) => {
         element.isCheck = false
       });
       setDataResolvedData(responseResolvedData.data.resolvedData)
@@ -96,12 +107,12 @@ const Home: NextPage = () => {
   }, [listData])
 
 
-  const fnsetDatalist = (data: any, checked: boolean) => {
-    const findData = listData.find((o: any) => o.id === data.id)
+  const fnsetDatalist = (data: ITicketData, checked: boolean) => {
+    const findData = listData.find((o: ITicketData) => o.id === data.id)
     if (!findData) {
       dispatch(ticketAction([...listData, data]))
     } else {
-      const list = listData.filter((o: any) => o.id != findData.id)
+      const list = listData.filter((o: ITicketData) => o.id != findData.id)
       dispatch(ticketAction(list))
     }
 
@@ -135,37 +146,37 @@ const Home: NextPage = () => {
     switch (status) {
       case statusTicket.pending:
         if (sortData.pending == "new") {
-          setDataPendingData(dataPendingData.sort((a: any, b: any) => a.updateDated < b.updateDated ? 1 : -1));
+          setDataPendingData(dataPendingData.sort((a: ITicketData, b: ITicketData) => a.updateDated < b.updateDated ? 1 : -1));
           setSortData({ ...sortData, pending: "old" })
         } else {
-          setDataPendingData(dataPendingData.sort((a: any, b: any) => a.updateDated > b.updateDated ? 1 : -1));
+          setDataPendingData(dataPendingData.sort((a: ITicketData, b: ITicketData) => a.updateDated > b.updateDated ? 1 : -1));
           setSortData({ ...sortData, pending: "new" })
         }
         break;
       case statusTicket.accepted:
         if (sortData.accept == "new") {
-          setDataAcceptedData(dataAcceptedData.sort((a: any, b: any) => a.updateDated < b.updateDated ? 1 : -1));
+          setDataAcceptedData(dataAcceptedData.sort((a: ITicketData, b: ITicketData) => a.updateDated < b.updateDated ? 1 : -1));
           setSortData({ ...sortData, accept: "old" })
         } else {
-          setDataAcceptedData(dataAcceptedData.sort((a: any, b: any) => a.updateDated > b.updateDated ? 1 : -1));
+          setDataAcceptedData(dataAcceptedData.sort((a: ITicketData, b: ITicketData) => a.updateDated > b.updateDated ? 1 : -1));
           setSortData({ ...sortData, accept: "new" })
         }
         break;
       case statusTicket.rejected:
         if (sortData.reject == "new") {
-          setDataRejectedData(dataRejectedData.sort((a: any, b: any) => a.updateDated < b.updateDated ? 1 : -1));
+          setDataRejectedData(dataRejectedData.sort((a: ITicketData, b: ITicketData) => a.updateDated < b.updateDated ? 1 : -1));
           setSortData({ ...sortData, reject: "old" })
         } else {
-          setDataRejectedData(dataRejectedData.sort((a: any, b: any) => a.updateDated > b.updateDated ? 1 : -1));
+          setDataRejectedData(dataRejectedData.sort((a: ITicketData, b: ITicketData) => a.updateDated > b.updateDated ? 1 : -1));
           setSortData({ ...sortData, reject: "new" })
         }
         break;
       case statusTicket.resolved:
         if (sortData.resolve == "new") {
-          setDataResolvedData(dataResolvedData.sort((a: any, b: any) => a.updateDated < b.updateDated ? 1 : -1));
+          setDataResolvedData(dataResolvedData.sort((a: ITicketData, b: ITicketData) => a.updateDated < b.updateDated ? 1 : -1));
           setSortData({ ...sortData, resolve: "old" })
         } else {
-          setDataResolvedData(dataResolvedData.sort((a: any, b: any) => a.updateDated > b.updateDated ? 1 : -1));
+          setDataResolvedData(dataResolvedData.sort((a: ITicketData, b: ITicketData) => a.updateDated > b.updateDated ? 1 : -1));
           setSortData({ ...sortData, resolve: "new" })
         }
         break;
@@ -178,7 +189,7 @@ const Home: NextPage = () => {
     setUpdate(false)
   }, [isUpdate])
 
-  const editTicket = async (data: any) => {
+  const editTicket = async (data: ITicketData) => {
     const response = await callService(
       {
         method: method.put,
@@ -224,7 +235,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="colunm">
-              {dataPendingData.map((o: any, key: number) =>
+              {dataPendingData.map((o: ITicketData, key: number) =>
               (
                 <div className="box" key={key}>
                   <CheckBox isChecked={o.isCheck} name={o.name} onClick={(e: any) => {
@@ -259,7 +270,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="colunm">
-              {dataAcceptedData.map((o: any, key: number) =>
+              {dataAcceptedData.map((o: ITicketData, key: number) =>
               (
                 <div className="box" key={key}>
                   <CheckBox isChecked={o.isCheck} name={o.name} text={o.name} onClick={(e: any) => fnsetDatalist(o, e)
@@ -293,7 +304,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="colunm">
-              {dataRejectedData.map((o: any, key: number) =>
+              {dataRejectedData.map((o: ITicketData, key: number) =>
               (
                 <div className="box" key={key}>
                   <CheckBox isChecked={o.isCheck} name={o.name} text={o.name} onClick={(e: any) => fnsetDatalist(o, e)} />
@@ -325,7 +336,7 @@ const Home: NextPage = () => {
               </div>
             </div>
             <div className="colunm">
-              {dataResolvedData.map((o: any, key: number) =>
+              {dataResolvedData.map((o: ITicketData, key: number) =>
               (
                 <div className="box" key={key}>
                   <CheckBox isChecked={o.isCheck} name={o.name} text={o.name} onClick={(e: any) => fnsetDatalist(o, e)} />

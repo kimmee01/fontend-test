@@ -44,7 +44,10 @@ Header.propTypes = {
 
 export default Header ;
 
-const Styled = styled.nav<any>`
+interface cssHeader {
+    isShowIconBack : boolean;
+}
+const Styled = styled.nav<cssHeader>`
     display: inline-flex; 
     align-items:  center;
     padding : 20px 30px;
