@@ -36,17 +36,19 @@ const Modal : FC<IModalProps> = (props) => {
 export default Modal
 
 const Styled = styled.div `
+ 
 .modal {
-    position: absolute;
+    position: fixed;
     top: 40px;
     left: 40px;
     right: 40px;
-    background-color: papayawhip;
+    background-color: var(--bs-white);
     border-radius: 20px;
     width: 50%;
     margin: auto;
     min-height: 500px;
     height: auto;
+    overflow: auto;
   }
 
   .overlay {
@@ -60,11 +62,14 @@ const Styled = styled.div `
   }
   .body-modal{
       padding: 20px;
+      height: 750px;
+      overflow-y: auto;
   }
   .header-modal { 
     padding : 20px;
     height:60px;
     position: relative;
+    box-shadow: 0px 4px 4px rgba(215, 215, 215, 0.25);
 
     .close-icon{ 
         font-size:30px;
@@ -74,7 +79,24 @@ const Styled = styled.div `
         cursor: pointer;
     }
   }
- 
+
+
+  @media screen and (min-width: 426px) and (max-width: 768px) {
+    .modal{
+        top: 100px;
+    }
+  }
+  @media screen and (min-width: 320px) and (max-width: 425px) {
+      body {
+        
+      }
+    .modal{ 
+       
+        width: 100%;
+        left: 0px;
+        right: 0px;
+    }
+  }
 `
 
 

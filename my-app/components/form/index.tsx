@@ -38,9 +38,21 @@ const FormTicket : FC<ITicketData>= (props) => {
     }
 
     
-    const onSubmit: any = async (data: ITicketData) => {
-        setDataInitial({dataInitial , ...data})
-        props.callBack && props.callBack(dataInitial)
+    const onSubmit = async (data: any) => {
+        const response = {
+            id : dataInitial?.id || null,
+            name : data.name,
+            email : data.email,
+            phoneNumber : data.phoneNumber,
+            description : data.description,
+        }
+       props.callBack && props.callBack(response)
+       reset({
+            name : null,
+            email: null,
+            phoneNumber : null,
+            description : null,
+        })
     };
     
     return (
@@ -72,7 +84,7 @@ const FormTicket : FC<ITicketData>= (props) => {
                         <div className="col-sm-12 col-lg-6">
                             <div className="form-input">
                                 <label>Phone number</label>
-                                <input {...register("phoneNumber", { required: true, pattern: /^(0|[1-9][0-9]*)$/, maxLength: 10 })} placeholder="Phone number" />
+                                <input {...register("phoneNumber", { required: true, pattern: /^(0|[0-9][0-9]*)$/, maxLength: 10 })} placeholder="Phone number" />
                                 {errors.phoneNumber?.type === "required" && <span className="validate-text">This field is required</span>}
                                 {errors.phoneNumber?.type === "pattern" && <span className="validate-text">This field is only number</span>}
                                 {errors.phoneNumber?.type === "maxLength" && <span className="validate-text">This field is out of length</span>}

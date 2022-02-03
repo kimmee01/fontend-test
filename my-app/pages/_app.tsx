@@ -43,4 +43,8 @@ const Body = styled.div`
   @media only screen and (max-width: 425px) {
     display: block;
   }
+
+  @media only screen and (max-width: 768px) {
+    display: block;
+  }
 `;

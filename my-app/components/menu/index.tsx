@@ -41,8 +41,6 @@ const Menu = (props: IHeader) => {
 
                 </ul>
             </div>
-
-
         </Styled>
     )
 }
@@ -63,14 +61,7 @@ const Styled = styled.nav<any>`
         color: var(--bs-white);
         padding: 20px ;
     }
-    .bg-menu{
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: var(--bs-blue);
-    }
+  
     .header{
         cursor: pointer;
         position: relative;
@@ -99,8 +90,20 @@ const Styled = styled.nav<any>`
     .bar-icon { 
         display: none;
     }
-
+    .bg-menu{
+        display: none;
+    }
     @media only screen and (max-width: 425px) {
+        .bg-menu{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            background-color: var(--bs-blue);
+            display: block;
+        }
         width: 100%;
         padding: 20px;
             .bar-icon{
@@ -116,6 +119,47 @@ const Styled = styled.nav<any>`
             position: absolute;
             top:0;
             left:0;
+            z-index: 1;
+        }
+        .header{
+            .close-icon{ 
+                width:40px;
+                height: 40px;
+                display:block;
+                position: absolute;
+                right:5px;
+                top:0px;
+                font-size:30px;
+            }
+        }
+    }
+    @media only screen and (max-width:768px) {
+        .bg-menu{
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            background-color: var(--bs-blue);
+            display: block;
+        }
+        width: 100%;
+        padding: 20px;
+            .bar-icon{
+                display: block;
+                i{
+                    font-size:20px;
+                    color: var(--bs-white)
+                }
+            }
+       
+        .menu {
+            display:${p => p.isShowMenu ? 'block' : 'none'};
+            position: absolute;
+            top:0;
+            left:0;
+            z-index: 1;
         }
         .header{
             .close-icon{ 

@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios'
 export enum method {
     post = "post",
     get = "get",
-    update = "update",
+    put = "put",
     delete = "delete"
 }
 

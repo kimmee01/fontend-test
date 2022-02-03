@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import Header from '../components/header'
 import { useForm } from "react-hook-form";
@@ -14,7 +14,6 @@ interface ITicketData {
     email: string,
 }
 const CreateTicketPage = () => {
-    const { register, handleSubmit, watch, formState: { errors }, reset } = useForm();
     const callservice = async (data : any) => {
         const response = await callService(
             {
@@ -23,8 +22,6 @@ const CreateTicketPage = () => {
                 data: data
             }
         )
-        reset()
-        console.log("response", response)
     };
     return (
         <Styled>

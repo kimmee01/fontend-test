@@ -1,12 +1,12 @@
 
-export enum demoType {
+export enum updateList {
     UPDATE = "UPDATE_DATA"
 }
 
-export const demoAction = (data: any) => 
+export const ticketAction = (data: any) => 
     (dispatch: (arg0: { type: any; data: any; }) => void) => {
         dispatch({
-            type: demoType.UPDATE,
+            type: updateList.UPDATE,
             data,
         })
 }

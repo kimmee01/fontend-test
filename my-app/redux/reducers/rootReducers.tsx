@@ -1,8 +1,8 @@
 import { combineReducers } from "redux"
-import demoReducer from "./demo-reducer"
+import TicketReducer from "./ticket-reducer"
 
 const rootReducers = combineReducers({
-    demoReducer
+    TicketReducer
 })
 
 export default rootReducers

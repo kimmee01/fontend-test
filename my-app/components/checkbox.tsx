@@ -1,20 +1,28 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from 'prop-types';
 import styled from "styled-components";
 
 const CheckBox = (props : any) => {
+  const [isChecked , setIsChecked] = useState(false)
+
+  useEffect(()=> {
+    setIsChecked(props.isChecked)
+  },[props.isChecked])
     return (
         <Styled>
-            <label className="checkbox"> {props.name}
+            <label className="checkbox"> 
+            {props.name?.substring(0, 10) + (props.name?.length > 10 ? '...' : "")}
                 <input type="checkbox" 
                     id={props.name}
                     name="checkbox"
-                    onClick={(e) => props.onClick != undefined && props.onClick(props.value ? (e.target  as HTMLInputElement)?.value : (e.target  as HTMLInputElement).checked ) }
+                    onClick={(e) => 
+                      {setIsChecked((e.target  as HTMLInputElement).checked ) 
+                      props.onClick != undefined && props.onClick(props.value ? (e.target  as HTMLInputElement)?.value : (e.target  as HTMLInputElement).checked ) }}
                     onChange={(e) => props.onChange != undefined && props.onChange(props.value ? e.target.value : e.target.checked) }
                     disabled={props.disabled}
                     value={props.value}
-                    checked={props.isChecked}
+                    checked={isChecked}
                 />
                 <span className="checkmark"></span>
             </label>
@@ -34,8 +42,9 @@ export default CheckBox
 
 const Styled = styled.div `
 .checkbox {
-    padding: 10px 0px;
+    overflow: hidden;
     width: 100%;
+    padding: 10px 0px;
     position: relative;
     padding-left: 35px;
     cursor: pointer;

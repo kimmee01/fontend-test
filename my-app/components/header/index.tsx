@@ -49,6 +49,7 @@ const Styled = styled.nav<any>`
     align-items:  center;
     padding : 20px 30px;
     width: 100%;
+    box-shadow: 0px 4px 4px rgba(215, 215, 215, 0.25);
     .page-name{
         margin-left: ${props => !props.isShowIconBack ? "0px" : "20px"} ;
     }
