@@ -62,7 +62,7 @@ const Styled = styled.div `
   }
   .body-modal{
       padding: 20px;
-      height: 750px;
+      height: 650px;
       overflow-y: auto;
   }
   .header-modal { 
